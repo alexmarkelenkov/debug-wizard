@@ -2,20 +2,14 @@ package org.camunda.bpm.debugger.server;
 
 import io.netty.channel.ChannelFuture;
 
-/**
- *
- * @author Daniel Meyer
- *
- */
+
 public class DebugWebsocket {
 
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;
 
   protected ChannelFuture closeFuture;
 
-  /**
-   * @param debugWebsocketConfiguration
-   */
+
   public DebugWebsocket(DebugWebsocketConfiguration debugWebsocketConfiguration) {
     this.debugWebsocketConfiguration = debugWebsocketConfiguration;
 

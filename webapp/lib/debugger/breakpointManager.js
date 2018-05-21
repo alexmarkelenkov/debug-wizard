@@ -7,50 +7,28 @@ BREAKPOINT_NAMES[BEFORE_ACTIVITY] = 'Before';
 BREAKPOINT_NAMES[AFTER_ACTIVITY] = 'After';
 
 
-//var AT_TRANSITION = 'AT_TRANSITION';
 
 var Breakpoint = (function() {
 
-  /**
-   * @class
-   * @classdesc A breakpoint
-   *
-   * @param {string} elementId The id of the element
-   * @param {string} processDefinitionId The id of the process definition
-   * @param {string} type The type of the breakpoint.
-   */
-  function Breakpoint(elementId, processDefinitionId, type) {
+
+  function Breakpoint(elementId) {
     this.elementId = elementId;
-    this.processDefinitionId = processDefinitionId;
-    this.type = type;
     this.isActive = true;
-    this.condition = {script: null, scriptLanguage: 'Javascript'};
   }
 
   Breakpoint.prototype.typeName = function() {
     return BREAKPOINT_NAMES[this.type];
   };
 
-  /**
-   * @returns {string} a human presentable string representation 
-   * of this breakpoint
-   */
+
   Breakpoint.prototype.toString = function() {
-    return this.type + ' ' + this.elementId;
+    return this.elementId;
   };
 
-  /**
-   * @returns {Object} the dto representation of this breakpoint
-   */
+
   Breakpoint.prototype.asDto = function() {
     return {
-      "elementId" : this.elementId,
-      "processDefinitionId" : this.processDefinitionId,
-      "type": this.type,
-      "condition": {
-        "script": this.condition.script,
-        "language": this.condition.scriptLanguage
-      }
+      "elementId" : this.elementId
     };
   };
 
@@ -58,27 +36,22 @@ var Breakpoint = (function() {
 
 })();
 
+
+
 var BreakpointManager = (function() {
 
-  /**
-   * @classdesc The breakpoint manager allows managing
-   * breakpoints
-   */
+
   function BreakpointManager(workbench) {
 
-    /** @member {DebugSession} the debug session */
     this.serverSession = workbench.serverSession;
 
     this.workbench = workbench;
 
-    /** @private The list of breakpoints. */
     this.breakpoints = [];
 
   }
 
-  /**
-   * updates all active breakpoints in the debug session
-   */
+
   BreakpointManager.prototype.updateBreakpoints = function() {
 
     if(this.serverSession.isOpen()) {

@@ -17,12 +17,7 @@ import java.util.logging.Logger;
 import org.camunda.bpm.debugger.server.DebugWebsocketConfiguration;
 import org.camunda.bpm.debugger.server.netty.AbstractNettyServer;
 
-/**
- * The debug http server
- *
- * @author Daniel Meyer
- *
- */
+
 public class WebsocketServer extends AbstractNettyServer {
 
   final static Logger LOGG = Logger.getLogger(WebsocketServer.class.getName());

@@ -6,10 +6,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Daniel Meyer
- *
- */
+
 public abstract class AbstractNettyServer {
 
   private final static Logger LOGG = Logger.getLogger(Logger.class.getName());

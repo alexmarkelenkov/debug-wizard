@@ -6,31 +6,28 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 import org.camunda.bpm.debugger.server.DebugWebsocketConfiguration;
+import org.camunda.bpm.debugger.server.engine.DebugSessionFactory;
 
-/**
- * This handler is responsible for executing incoming commands over the protocol
- *
- * @author Daniel Meyer
- *
- */
+
 public class DebugProtocolHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;
 
-  /**
-   * @param debugWebsocketConfiguration
-   */
+
   public DebugProtocolHandler(DebugWebsocketConfiguration debugWebsocketConfiguration) {
     this.debugWebsocketConfiguration = debugWebsocketConfiguration;
   }
 
   protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
 
+    System.out.println(msg.text());
+
     debugWebsocketConfiguration
       .getProtocol()
       .executeCommand(ctx.channel(), msg.text());
 
   }
+
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -49,7 +46,7 @@ public class DebugProtocolHandler extends SimpleChannelInboundHandler<TextWebSoc
       // open the session
       debugWebsocketConfiguration
         .getProtocol()
-        .openSession(ctx);
+        .openSession(ctx, new DebugSessionFactory());
     }
     super.userEventTriggered(ctx, evt);
   }

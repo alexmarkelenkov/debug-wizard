@@ -1,15 +1,3 @@
-/* Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.camunda.bpm.debugger.server.protocol;
 
 import io.netty.channel.Channel;
@@ -30,13 +18,12 @@ import org.camunda.bpm.debugger.server.protocol.cmd.DebugCommandContext;
 import org.camunda.bpm.debugger.server.protocol.dto.ErrorData;
 import org.camunda.bpm.debugger.server.protocol.evt.ErrorEvt;
 import org.camunda.bpm.debugger.server.protocol.evt.EventDto;
-import org.camunda.bpm.dev.debug.DebugSession;
-import org.camunda.bpm.dev.debug.DebugSessionFactory;
 
-/**
- * @author Daniel Meyer
- *
- */
+
+import org.camunda.bpm.debugger.server.engine.DebugSession;
+import org.camunda.bpm.debugger.server.engine.DebugSessionFactory;
+
+
 public class DebugProtocol {
 
   protected static Pattern commandNameMatcher = Pattern.compile(".*\"command\"\\s*:\\s*\"([\\w|-]*)\".*");
@@ -45,29 +32,19 @@ public class DebugProtocol {
 
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;
 
-  /**
-   * The set of registered command handlers to be used for executing commands.
-   */
   protected Map<String, Class<? extends DebugCommand<?>>> commandHandlers = new HashMap<String, Class<? extends DebugCommand<?>>>();
 
-  /**
-   * @param debugWebsocketConfiguration
-   */
+
   public DebugProtocol(DebugWebsocketConfiguration debugWebsocketConfiguration) {
     this.debugWebsocketConfiguration = debugWebsocketConfiguration;
   }
 
-  /**
-   * Register a command handler
-   * @param cmdName the name of the command
-   */
+
   public void registerCommandHandler(String cmdName, Class<? extends DebugCommand<?>> handler) {
     this.commandHandlers.put(cmdName, handler);
   }
 
-  /**
-   * @param commandPayload
-   */
+
   public void executeCommand(Channel ch, String commandPayload) {
 
     try {
@@ -86,7 +63,9 @@ public class DebugProtocol {
           .getMarshaller()
           .unmarshal(commandPayload, commandHandler);
 
-        commandDto.execute(new DebugCommandContext(ch, this));
+        //commandDto.execute(new DebugCommandContext(ch, this));
+
+          commandDto.execute(new DebugCommandContext(ch, this));
 
       } else {
         LOGG.warning("Unrecognized command '"+commandName+"'.");
@@ -104,6 +83,8 @@ public class DebugProtocol {
     try {
       String marshalledEvent = debugWebsocketConfiguration.getMarshaller()
         .marshal(event);
+
+      System.out.println(marshalledEvent);
 
       channel.writeAndFlush(new TextWebSocketFrame(marshalledEvent));
 
@@ -130,9 +111,8 @@ public class DebugProtocol {
    *
    * @param ctx channel context
    */
-  public void openSession(ChannelHandlerContext ctx) {
+  public void openSession(ChannelHandlerContext ctx, DebugSessionFactory debugSessionFactory) {
 
-    final DebugSessionFactory debugSessionFactory = DebugSessionFactory.getInstance();
     DebugSession session = debugSessionFactory.openSession();
 
     ProtocolDebugEventListener protocolDebugEventListener = new ProtocolDebugEventListener(this, ctx.channel());
