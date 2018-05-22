@@ -2,26 +2,12 @@
 
 var EventBus = (function() {
 
-  /**
-   * @class
-   * @classdesc a very simple event bus
-   *
-   */
+
   function EventBus() {
-
-    /**
-     * @member {array} a list of event liseners on the debug session
-     */
     this.eventListeners = {};
-
   }
 
-  /**
-   * Register an event listener for a particular event or all events.
-   *
-   * @param {string} eventName the name of the event or '*' for global event listeners
-   * @param {function} callback the callback function invoked if an event is received.
-   */
+
   EventBus.prototype.onEvent =
   EventBus.prototype.on = function(eventName, callback, once) {
     if(once) {
@@ -33,6 +19,7 @@ var EventBus = (function() {
     }
     listeners[eventName].unshift(callback);
   };
+
 
   EventBus.prototype.off = function(eventName, callback) {
     var listeners = this.eventListeners[eventName];
@@ -49,9 +36,11 @@ var EventBus = (function() {
     }
   };
 
+
   EventBus.prototype.fireEvent = function(eventName, eventPayload) {
     fireEvent(eventName, eventPayload, this.eventListeners);
   };
+
 
   function fireEvent(eventName, eventPayload, eventListeners) {
 

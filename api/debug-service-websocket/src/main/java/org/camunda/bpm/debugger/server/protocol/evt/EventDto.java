@@ -2,10 +2,9 @@ package org.camunda.bpm.debugger.server.protocol.evt;
 
 
 public class EventDto<T> {
-
   protected String event;
-
   protected T data;
+
 
   public EventDto(String eventName, T data) {
     this.event = eventName;

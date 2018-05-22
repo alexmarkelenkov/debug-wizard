@@ -19,7 +19,6 @@ import org.camunda.bpm.debugger.server.netty.AbstractNettyServer;
 
 
 public class WebsocketServer extends AbstractNettyServer {
-
   final static Logger LOGG = Logger.getLogger(WebsocketServer.class.getName());
 
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;

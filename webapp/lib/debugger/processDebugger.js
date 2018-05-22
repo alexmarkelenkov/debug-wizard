@@ -36,32 +36,19 @@ var ProcessDebugger = (function() {
 
   // class ///////////////////////////////
 
-  /**
-   * @class
-   * @classdesc the Process Debugger class
-   *
-   * @param {Workbench} workbench
-   */
+
   function ProcessDebugger(workbench) {
-
-    /** @member the workbench */
     this.workbench = workbench;
-
     this.breakpointManager = new BreakpointManager(workbench);
-
     this.executionManager = new ExecutionManager(workbench);
-
-    /** @member {String} the Id of the currently associated process definition or 'null'*/
     this.processDefinitionId = null;
-
-    /** @member {String} the Id of the currently associated process instance or 'null' */
     this.processInstanceId = null;
-
     // initialize
     registerListeners(workbench.eventBus, this);
   }
 
-  /** deploy the current diagram */
+
+
   ProcessDebugger.prototype.deployProcess = function(callback) {
     var self = this;
     this.workbench.diagramProvider.getBpmnXml(function(err, xml) {
@@ -78,14 +65,20 @@ var ProcessDebugger = (function() {
     });
   };
 
+
+
   ProcessDebugger.prototype.isSessionOpen = function() {
     return this.workbench.serverSession.isOpen();
   };
 
-  /** returns true if it is possible to deploy a process */
+
+
+
   ProcessDebugger.prototype.canDeployProcess = function() {
     return this.isSessionOpen();
   };
+
+
 
   ProcessDebugger.prototype.runMode = function() {
     if(!this.canRun()) {
@@ -98,6 +91,8 @@ var ProcessDebugger = (function() {
       return "Resume Execution";
     }
   };
+
+
 
   ProcessDebugger.prototype.runActivity = function(id) {
 
@@ -115,6 +110,8 @@ var ProcessDebugger = (function() {
     }
   };
 
+
+
   ProcessDebugger.prototype.run = function() {
     if(this.processDefinitionId !== null) {
       var selectedExecution = this.executionManager.selectedExecution;
@@ -127,6 +124,8 @@ var ProcessDebugger = (function() {
       }
     }
   };
+
+
 
   ProcessDebugger.prototype.canRun = function() {
     if(!this.isSessionOpen() || this.processDefinitionId === null) {
@@ -142,6 +141,8 @@ var ProcessDebugger = (function() {
     }
 
   };
+
+
 
   ProcessDebugger.prototype.step = function() {
     var execution = this.executionManager.selectedExecution;

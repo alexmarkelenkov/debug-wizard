@@ -6,44 +6,18 @@ var ConsoleController = [ '$scope', function($scope) {
 
   var serverSession = $scope.workbench.serverSession;
   var eventBus = $scope.workbench.eventBus;
-
   var nextId = 0;
 
   $scope.processDebugger = $scope.workbench.processDebugger;
-
-  /**
-   * the console input is bound to this field
-   */
   $scope.script = null;
-
-  /**
-   * the id of the currently suspended execution
-   */
   $scope.executionId = null;
-
-  /**
-   * the list of script evaluations already performed (history)
-   */
   $scope.commandResults = [];
-
-  /**
-   * the list of executed commands
-   */
   $scope.scripts = [];
-
-  /**
-   * the current position in history
-   */
   $scope.historyCurrent = 0;
-
-  /**
-   * currently selected script language
-   */
   $scope.scriptLanguage = null;
 
 
   $scope.evaluate = function() {
-
     if ('clear' === $scope.script) {
       $scope.commandResults = [];
 
@@ -65,6 +39,7 @@ var ConsoleController = [ '$scope', function($scope) {
     $scope.script = '';
   };
 
+
   $scope.historyPrevious = function() {
     var entry = $scope.scripts.length - $scope.historyCurrent -1;
     if(entry >= 0) {
@@ -72,6 +47,7 @@ var ConsoleController = [ '$scope', function($scope) {
       $scope.historyCurrent++;
     }
   };
+
 
   $scope.historyNext = function() {
     var entry = $scope.historyCurrent - 1;
@@ -86,6 +62,7 @@ var ConsoleController = [ '$scope', function($scope) {
     }
   };
 
+
   function addCommandResults(data, failed) {
     var cmdId = data.cmdId;
     for(var i = 0; i < $scope.commandResults.length; i++) {
@@ -97,12 +74,14 @@ var ConsoleController = [ '$scope', function($scope) {
     }
   }
 
+
   $scope.fetchHints = function(partialInput) {
     return serverSession.completeCodePrefix({
       prefix: partialInput,
       executionId: $scope.executionId
     });
   }
+
 
   function logError(error) {
     $scope.commandResults.push({
@@ -111,6 +90,7 @@ var ConsoleController = [ '$scope', function($scope) {
       evaluationFailed : true
     });
   }
+
 
   // register event listeners on the debug session
 

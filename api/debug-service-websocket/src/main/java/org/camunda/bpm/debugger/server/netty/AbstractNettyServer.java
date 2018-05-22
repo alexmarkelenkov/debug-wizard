@@ -8,12 +8,11 @@ import java.util.logging.Logger;
 
 
 public abstract class AbstractNettyServer {
-
   private final static Logger LOGG = Logger.getLogger(Logger.class.getName());
-
   protected int port;
   protected NioEventLoopGroup bossGroup = new NioEventLoopGroup();
   protected NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+
 
   public abstract ChannelFuture run();
 

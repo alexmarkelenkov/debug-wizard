@@ -5,12 +5,10 @@ import java.io.PrintWriter;
 
 
 public class ErrorData {
-
   protected String errorType;
-
   protected String errorMessage;
-
   protected String exceptonStrackTrace;
+
 
   public ErrorData() {
   }

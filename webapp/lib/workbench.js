@@ -17,8 +17,5 @@ var ngModule = angular.module('developer', [
   'ui.ace'
 ]);
 
-/*ngModule.config([ '$locationProvider', function($locationProvider) {
-  $locationProvider.html5Mode(true);
-}]);*/
 
 module.exports = ngModule;

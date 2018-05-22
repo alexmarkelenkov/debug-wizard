@@ -7,10 +7,10 @@ import org.camunda.bpm.debugger.server.protocol.ProtocolDebugEventListener;
 import org.camunda.bpm.debugger.server.engine.DebugSession;
 
 public class ChannelAttributes {
-
   protected static final AttributeKey<String> PROCESS_DEF_ID_ATTR = AttributeKey.valueOf("processDefinitionId");
   protected static final AttributeKey<ProtocolDebugEventListener> DBG_EVT_LISTENER_ATTR = AttributeKey.valueOf("debugEventListener");
   protected static final AttributeKey<DebugSession> DBG_SESSION_ATTR = AttributeKey.valueOf("debugSession");
+
 
   public static String getProcessDefinitionId(Channel channel) {
     return channel.attr(PROCESS_DEF_ID_ATTR).get();

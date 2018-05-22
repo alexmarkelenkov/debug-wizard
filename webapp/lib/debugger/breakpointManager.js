@@ -16,10 +16,6 @@ var Breakpoint = (function() {
     this.isActive = true;
   }
 
-  Breakpoint.prototype.typeName = function() {
-    return BREAKPOINT_NAMES[this.type];
-  };
-
 
   Breakpoint.prototype.toString = function() {
     return this.elementId;
@@ -40,41 +36,30 @@ var Breakpoint = (function() {
 
 var BreakpointManager = (function() {
 
-
   function BreakpointManager(workbench) {
-
     this.serverSession = workbench.serverSession;
-
     this.workbench = workbench;
-
     this.breakpoints = [];
-
   }
 
 
   BreakpointManager.prototype.updateBreakpoints = function() {
-
     if(this.serverSession.isOpen()) {
-
       var breakpointDtos = [];
-      for (var i = 0; i<this.breakpoints.length; i++) {
+      for (var i = 0; i < this.breakpoints.length; i++) {
         var bp = this.breakpoints[i];
         if(bp.isActive) {
           breakpointDtos.push(bp.asDto());
         }
       }
-
       this.serverSession.setBreakpoints(breakpointDtos);
     }
-
   };
 
   BreakpointManager.prototype.toggleBreakpointType = function(bp) {
 
     this.workbench.eventBus.fireEvent('breakpoint-removed', bp);
 
-    // toggle type
-    bp.type = BEFORE_ACTIVITY === bp.type ? AFTER_ACTIVITY : BEFORE_ACTIVITY;
 
     // update breakpoints on server
     this.updateBreakpoints();
@@ -83,9 +68,7 @@ var BreakpointManager = (function() {
     this.workbench.eventBus.fireEvent('breakpoint-added', bp);
   };
 
-  /**
-   * updates an individual breakpoint
-   */
+
   BreakpointManager.prototype.toggleBreakpointActive = function(bp) {
     var eventName;
     if(bp.isActive) {
@@ -101,7 +84,7 @@ var BreakpointManager = (function() {
     this.workbench.eventBus.fireEvent(eventName, bp);
   };
 
-  /** clears all breakpoints, here and on the server */
+
   BreakpointManager.prototype.clear= function() {
 
     this.breakpoints = [];
@@ -109,23 +92,17 @@ var BreakpointManager = (function() {
 
   };
 
-  /**
-   * toggles a breakpoint
-   *
-   * @param {string} elementId The id of the element
-   * @param {string} type The type of the breakpoint
-   */
-  BreakpointManager.prototype.toggleBreakpoint = function(elementId,processDefinitionId, type) {
+
+  BreakpointManager.prototype.toggleBreakpoint = function(elementId) {
     var removeIdx = -1;
     for(var i=0; i < this.breakpoints.length; i++) {
       var bp = this.breakpoints[i];
-      if(bp.elementId === elementId && bp.type === type) {
+      if(bp.elementId === elementId) {
         removeIdx = i;
       }
     }
 
-    var eventName,
-        changedBreakpoint;
+    var eventName, changedBreakpoint;
 
     if(removeIdx >= 0) {
       // remove existing breakpoint
@@ -136,7 +113,7 @@ var BreakpointManager = (function() {
     } else {
       // add new breakpoint
       eventName = "breakpoint-added";
-      changedBreakpoint = new Breakpoint(elementId, processDefinitionId, type);
+      changedBreakpoint = new Breakpoint(elementId);
       this.breakpoints.push(changedBreakpoint);
 
     }
@@ -147,20 +124,12 @@ var BreakpointManager = (function() {
     this.workbench.eventBus.fireEvent(eventName, changedBreakpoint);
   };
 
-  /**
-   * toggles a breakpoint before an element
-   *
-   * @param {string} the id of the element before which we want 
-   * to toggle the breakpoint.
-   * @param {string} the id of the process definition
-   */
-  BreakpointManager.prototype.toggleBreakpointBefore = function(elementId, processDefinitionId) {
-    this.toggleBreakpoint(elementId, processDefinitionId, BEFORE_ACTIVITY);
+
+  BreakpointManager.prototype.toggleBreakpointBefore = function(elementId) {
+    this.toggleBreakpoint(elementId);
   }; 
 
-  /**
-   * @returns {Array} a list of Breakpoints
-   */
+
   BreakpointManager.prototype.getBreakpoints = function() {
     return this.breakpoints;
   };

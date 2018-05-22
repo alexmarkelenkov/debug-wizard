@@ -25,13 +25,9 @@ import org.camunda.bpm.debugger.server.engine.DebugSessionFactory;
 
 
 public class DebugProtocol {
-
   protected static Pattern commandNameMatcher = Pattern.compile(".*\"command\"\\s*:\\s*\"([\\w|-]*)\".*");
-
   protected static Logger LOGG = Logger.getLogger(DebugWebsocketConfiguration.class.getName());
-
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;
-
   protected Map<String, Class<? extends DebugCommand<?>>> commandHandlers = new HashMap<String, Class<? extends DebugCommand<?>>>();
 
 
@@ -39,11 +35,9 @@ public class DebugProtocol {
     this.debugWebsocketConfiguration = debugWebsocketConfiguration;
   }
 
-
   public void registerCommandHandler(String cmdName, Class<? extends DebugCommand<?>> handler) {
     this.commandHandlers.put(cmdName, handler);
   }
-
 
   public void executeCommand(Channel ch, String commandPayload) {
 
@@ -63,12 +57,10 @@ public class DebugProtocol {
           .getMarshaller()
           .unmarshal(commandPayload, commandHandler);
 
-        //commandDto.execute(new DebugCommandContext(ch, this));
-
           commandDto.execute(new DebugCommandContext(ch, this));
 
       } else {
-        LOGG.warning("Unrecognized command '"+commandName+"'.");
+        LOGG.warning("Unrecognized command '" + commandName + "'.");
         return;
       }
 
@@ -94,11 +86,6 @@ public class DebugProtocol {
 
   }
 
-  /**
-   * Closes the debug session in the provided channel
-   *
-   * @param ctx channel context
-   */
   public void closeSession(ChannelHandlerContext ctx) {
     DebugSession debugSession = ChannelAttributes.getDebugSession(ctx.channel());
     if(debugSession != null) {
@@ -106,11 +93,6 @@ public class DebugProtocol {
     }
   }
 
-  /**
-   * Opens a debug session in the provided channel
-   *
-   * @param ctx channel context
-   */
   public void openSession(ChannelHandlerContext ctx, DebugSessionFactory debugSessionFactory) {
 
     DebugSession session = debugSessionFactory.openSession();

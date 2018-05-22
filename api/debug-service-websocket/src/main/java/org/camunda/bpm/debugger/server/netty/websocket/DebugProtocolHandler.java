@@ -10,7 +10,6 @@ import org.camunda.bpm.debugger.server.engine.DebugSessionFactory;
 
 
 public class DebugProtocolHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-
   protected DebugWebsocketConfiguration debugWebsocketConfiguration;
 
 

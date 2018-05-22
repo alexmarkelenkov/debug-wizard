@@ -14,15 +14,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DebugWebsocketConfiguration {
 
-
   protected AbstractNettyServer nettyServer;
-
   protected DebugProtocol protocol;
-
   protected int port = 9090;
-
   protected ObjectMapper objectMapper;
-
   protected Marshaller marshaller;
 
 
@@ -70,9 +65,6 @@ public class DebugWebsocketConfiguration {
     }
   }
 
-
-
-
   public DebugWebsocketConfiguration protocol(DebugProtocol protocol) {
     this.protocol = protocol;
     return this;
@@ -85,26 +77,18 @@ public class DebugWebsocketConfiguration {
 
 
 
-
-
   public AbstractNettyServer getNettyServer() {
     return nettyServer;
   }
-
   public DebugProtocol getProtocol() {
     return protocol;
   }
-
-
   public void setProtocol(DebugProtocol protocol) {
     this.protocol = protocol;
   }
-
   public ObjectMapper getObjectMapper() {
     return objectMapper;
   }
-
-
   public Marshaller getMarshaller() {
     return marshaller;
   }

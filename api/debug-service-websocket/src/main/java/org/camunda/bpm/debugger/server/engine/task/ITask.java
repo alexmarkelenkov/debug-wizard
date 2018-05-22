@@ -1,4 +1,4 @@
-package org.camunda.bpm.debugger.server.engine;
+package org.camunda.bpm.debugger.server.engine.task;
 
 public interface ITask {
 

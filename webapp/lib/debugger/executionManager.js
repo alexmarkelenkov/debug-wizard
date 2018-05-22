@@ -41,14 +41,10 @@ var ExecutionManager = (function() {
 
 
   function ExecutionManager(workbench) {
-
     this.workbench = workbench;
     this.serverSession = workbench.serverSession;
     this.executions = [];
-
-    /** the currently selected execution */
     this.selectedExecution = null;
-
     registerListeners(this.serverSession.eventBus, this);
   }
 
@@ -107,9 +103,6 @@ var ExecutionManager = (function() {
     }
   };
 
-  ExecutionManager.prototype.breakPointTypeName = function(ex) {
-    return BREAKPOINT_NAMES[ex.breakPointType];
-  };
 
   return ExecutionManager;
 })();
