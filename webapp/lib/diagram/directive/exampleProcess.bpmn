@@ -1,81 +1,100 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_UMTjANlIEeO126z8O3IuJg" exporter="camunda modeler" exporterVersion="2.5.0" targetNamespace="http://activiti.org/bpmn">
-  <bpmn2:process id="Process_1" isExecutable="true">
-    <bpmn2:startEvent id="StartEvent_1">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://activiti.org/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:yaoqiang="http://bpmn.sourceforge.net" exporter="camunda modeler" exporterVersion="2.5.0" expressionLanguage="http://www.w3.org/1999/XPath" id="_UMTjANlIEeO126z8O3IuJg" name="" targetNamespace="http://activiti.org/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://bpmn.sourceforge.net/schemas/BPMN20.xsd">
+  <bpmn2:process id="Process_1" isClosed="false" isExecutable="true" processType="None">
+    <bpmn2:extensionElements>
+      <yaoqiang:description/>
+      <yaoqiang:pageFormat height="841.8897637795276" imageableHeight="831.8897637795276" imageableWidth="588.1102362204724" imageableX="5.0" imageableY="5.0" orientation="0" width="598.1102362204724"/>
+      <yaoqiang:page background="#FFFFFF" horizontalCount="1" verticalCount="1"/>
+    </bpmn2:extensionElements>
+    <bpmn2:startEvent id="StartEvent_1" isInterrupting="true" parallelMultiple="false">
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+      <bpmn2:outputSet/>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="loadOrder"/>
-    <bpmn2:scriptTask id="loadOrder" name="Load order" scriptFormat="Javascript">
+    <bpmn2:sequenceFlow id="SequenceFlow_1" sourceRef="StartEvent_1" targetRef="loadOrder"/>
+    <bpmn2:scriptTask completionQuantity="1" id="loadOrder" isForCompensation="false" name="Load order" scriptFormat="Javascript" startQuantity="1">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
       <bpmn2:script><![CDATA[print("LOAD ORDER");
 execution.setVariable("data", "ORDER_DATA");]]></bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:scriptTask id="calcSum" name="Calculate sum" scriptFormat="Javascript">
+    <bpmn2:scriptTask completionQuantity="1" id="calcSum" isForCompensation="false" name="Calculate sum" scriptFormat="Javascript" startQuantity="1">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
       <bpmn2:script><![CDATA[execution.setVariable("sum", 100);]]></bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="loadOrder" targetRef="calcSum"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="calcSum" targetRef="ScriptTask_3"/>
-    <bpmn2:scriptTask id="ScriptTask_3" name="Handle order" scriptFormat="Javascript">
+    <bpmn2:sequenceFlow id="SequenceFlow_2" sourceRef="loadOrder" targetRef="calcSum"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" sourceRef="calcSum" targetRef="ScriptTask_3"/>
+    <bpmn2:scriptTask completionQuantity="1" id="ScriptTask_3" isForCompensation="false" name="Handle order" scriptFormat="Javascript" startQuantity="1">
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:script><![CDATA[print("ORDER HANDLED " + execution.getVariable("data"));]]></bpmn2:script>
     </bpmn2:scriptTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="ScriptTask_3" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" sourceRef="ScriptTask_3" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_1">
       <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:inputSet/>
     </bpmn2:endEvent>
   </bpmn2:process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_6" bpmnElement="StartEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="150.0" y="216.0"/>
+  <bpmndi:BPMNDiagram id="Yaoqiang_Diagram-Process_1" name="Untitled Diagram" resolution="96.0">
+    <bpmndi:BPMNPlane bpmnElement="Process_1">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="Yaoqiang-StartEvent_1">
+        <dc:Bounds height="32.0" width="32.0" x="150.0" y="216.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="0.0" width="0.0" x="168.0" y="257.0"/>
+          <dc:Bounds height="18.8" width="6.0" x="165.0" y="257.08"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_ScriptTask_4" bpmnElement="loadOrder">
+      <bpmndi:BPMNShape bpmnElement="loadOrder" id="Yaoqiang-loadOrder">
         <dc:Bounds height="80.0" width="100.0" x="276.0" y="194.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_StartEvent_6" targetElement="_BPMNShape_ScriptTask_4">
-        <di:waypoint xsi:type="dc:Point" x="186.0" y="234.0"/>
-        <di:waypoint xsi:type="dc:Point" x="276.0" y="234.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="208.0" y="234.0"/>
+          <dc:Bounds height="18.8" width="68.0" x="292.0" y="226.6"/>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_ScriptTask_5" bpmnElement="calcSum">
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="calcSum" id="Yaoqiang-calcSum">
         <dc:Bounds height="80.0" width="100.0" x="426.0" y="194.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="87.0" x="432.5" y="226.6"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_ScriptTask_4" targetElement="_BPMNShape_ScriptTask_5">
-        <di:waypoint xsi:type="dc:Point" x="376.0" y="234.0"/>
-        <di:waypoint xsi:type="dc:Point" x="426.0" y="234.0"/>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_ScriptTask_6" bpmnElement="ScriptTask_3">
+      <bpmndi:BPMNShape bpmnElement="ScriptTask_3" id="Yaoqiang-ScriptTask_3">
         <dc:Bounds height="80.0" width="100.0" x="576.0" y="194.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_7" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="773.0" y="216.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="0.0" width="0.0" x="791.0" y="257.0"/>
+          <dc:Bounds height="18.8" width="80.0" x="586.0" y="226.6"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="_BPMNShape_ScriptTask_6" targetElement="_BPMNShape_EndEvent_7">
-        <di:waypoint xsi:type="dc:Point" x="676.0" y="234.0"/>
-        <di:waypoint xsi:type="dc:Point" x="773.0" y="234.0"/>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1" id="Yaoqiang-EndEvent_1">
+        <dc:Bounds height="32.0" width="32.0" x="773.0" y="216.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="698.0" y="234.0"/>
+          <dc:Bounds height="18.8" width="6.0" x="788.0" y="257.08"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_8" id="Yaoqiang-SequenceFlow_8">
+        <di:waypoint x="526.0" y="234.0"/>
+        <di:waypoint x="576.0" y="234.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="548.0" y="224.6"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="_BPMNShape_ScriptTask_5" targetElement="_BPMNShape_ScriptTask_6">
-        <di:waypoint xsi:type="dc:Point" x="526.0" y="234.0"/>
-        <di:waypoint xsi:type="dc:Point" x="576.0" y="234.0"/>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_5" id="Yaoqiang-SequenceFlow_5">
+        <di:waypoint x="676.0" y="234.0"/>
+        <di:waypoint x="773.0078144082805" y="232.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="572.0" y="234.0"/>
+          <dc:Bounds height="18.8" width="6.0" x="721.5" y="223.59"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_2" id="Yaoqiang-SequenceFlow_2">
+        <di:waypoint x="376.0" y="234.0"/>
+        <di:waypoint x="426.0" y="234.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="398.0" y="224.6"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1" id="Yaoqiang-SequenceFlow_1">
+        <di:waypoint x="181.99218559171948" y="232.0"/>
+        <di:waypoint x="276.0" y="234.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="18.8" width="6.0" x="226.0" y="223.59"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
-</bpmn2:definitions>
+</definitions>

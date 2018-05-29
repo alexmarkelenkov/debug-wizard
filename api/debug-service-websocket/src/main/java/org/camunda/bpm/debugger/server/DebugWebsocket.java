@@ -38,4 +38,7 @@ public class DebugWebsocket {
     debugWebsocketConfiguration.getNettyServer().shutdown();
   }
 
+  public DebugWebsocketConfiguration getDebugWebsocketConfiguration() {
+    return debugWebsocketConfiguration;
+  }
 }

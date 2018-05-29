@@ -13,17 +13,8 @@ public class DeployProcessCmd extends DebugCommand<DeployProcessData> {
 
 
   public void execute(DebugCommandContext ctx) {
-//
-//    String resourceName = data.getResourceName();
-//    String resourceData = data.getResourceData();
-
     final DebugSession debugSession = ctx.getDebugSession();
-
-//    execution.setName(resourceName);
-//    execution.setData(resourceData);
-
     ctx.fireEvent(new ProcessDeployedEvt(debugSession.getId()));
-
   }
 
 }
